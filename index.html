@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezoomer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configure Tailwind with custom settings
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'slide-up': 'slide-up 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'slide-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="public/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white">
+<!-- Header -->
+<header class="sticky top-0 bg-white z-50">
+    <div class="container mx-auto px-6 py-4 max-w-7xl">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <a href="#home" class="flex items-center">
+                    <img src="/public/logo.png" alt="Rezoomer Logo" class="h-8 w-auto object-contain">
+                </a>
+                <span class="text-2xl font-bold text-gray-900 sr-only">Rezoomer</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none p-2" aria-label="Menu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <!-- Desktop navigation and buttons -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-normal">Features</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-normal">How It Works</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-normal">Testimonials</a>
+                </nav>
+                <a href="#waitlist" class="hidden md:flex px-5 py-2.5 bg-[#13538A] text-white font-normal rounded-lg transition-all duration-200 items-center space-x-1">
+                    <span>Hire Experts</span>
+                </a>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white border-t border-gray-200 rounded-b-lg overflow-hidden">
+            <nav class="flex flex-col p-4 space-y-4">
+                <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium py-2 border-b border-gray-100 pb-3">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium py-2 border-b border-gray-100 pb-3">How It Works</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium py-2 border-b border-gray-100 pb-3">Testimonials</a>
+                <a href="#waitlist" class="px-5 py-3 bg-[#13538A] text-white font-medium rounded-lg transition-all duration-200 text-center">
+                    Hire Experts
+                </a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="relative overflow-hidden bg-white">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-7xl">
+        <div class="flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 mb-16 lg:mb-0">
+                <div class="max-w-2xl">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-6">
+                        <span>🚀 Now live: AI-powered recruitment platform</span>
+                    </div>
+                    <h1 class="text-5xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        <span class="bg-gradient-to-r from-[#1C88CF] to-[#13538A] bg-clip-text text-transparent">AI-Powered</span><br>
+                        <span class="text-gray-900">Global Recruitment</span>
+                    </h1>
+                    <p class="text-l md:text-xl text-gray-600 mb-8 max-w-lg font-normal">Rezoomer connects companies with top vetted talent around the world in days, not months. Our AI does the heavy lifting so you can focus on building.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a href="#waitlist" class="px-8 py-4 bg-[#13538A] text-white font-normal rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center justify-center  transform">
+                            <span>Join Waitlist</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <a href="#features" class="px-8 py-4 border border-gray-200 text-gray-700 font-normal rounded-xl hover:bg-gray-50 transition-all duration-200 flex items-center justify-center transform">
+                            <span>See How It Works</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Trust indicators -->
+                    <div class="flex items-center">
+                        <div class="flex -space-x-2">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=60a5fa&color=fff" alt="Sarah Johnson">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=Alex+Chen&background=3b82f6&color=fff" alt="Alex Chen">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=Maya+Patel&background=1d4ed8&color=fff" alt="Maya Patel">
+                        </div>
+                        <p class="ml-4 text-sm text-gray-600">Trusted by <span class="font-medium text-gray-800">1,247+</span> companies</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <div class="relative z-10" style="height: 600px;">
+                    <!-- Lottie Animation Container -->
+                    <div id="lottie-animation" class="w-full h-full"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="pb-20 bg-gradient-to-b from-white via-blue-50/50 to-white">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <!-- Stats Row -->
+        <div class="">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6 rounded-xl bg-white/70 backdrop-blur-sm border border-[#1C88CF]/20">
+                    <div class="text-3xl md:text-4xl font-bold text-[#1C88CF] mb-2">10x</div>
+                    <p class="text-gray-600 font-medium">Faster Hiring</p>
+                </div>
+                <div class="p-6 rounded-xl bg-white/70 backdrop-blur-sm border border-[#1C88CF]/20">
+                    <div class="text-3xl md:text-4xl font-bold text-[#1C88CF] mb-2">95%</div>
+                    <p class="text-gray-600 font-medium">Reduced Screening Time</p>
+                </div>
+                <div class="p-6 rounded-xl bg-white/70 backdrop-blur-sm border border-[#1C88CF]/20">
+                    <div class="text-3xl md:text-4xl font-bold text-[#1C88CF] mb-2">300+</div>
+                    <p class="text-gray-600 font-medium">Job Boards Integrated</p>
+                </div>
+                <div class="p-6 rounded-xl bg-white/70 backdrop-blur-sm border border-[#1C88CF]/20">
+                    <div class="text-3xl md:text-4xl font-bold text-[#1C88CF] mb-2">4.8/5</div>
+                    <p class="text-gray-600 font-medium">Customer Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-white">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6">
+                <i class="fas fa-star mr-2"></i>
+                Features
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Modern Recruitment Solutions</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Rezoomer transforms traditional hiring with intelligent automation and data-driven insights</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+            <!-- Lottie Animation -->
+            <div class="lg:order-2">
+                <div class="relative" style="height: 400px;">
+                    <div id="ai-animation" class="w-full h-full"></div>
+                    <!-- Animated background elements -->
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse" style="animation-delay: 2s"></div>
+                </div>
+            </div>
+            <!-- Feature Content -->
+            <div class="lg:order-1">
+                <div class="space-y-8">
+                    <div class="group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-[#1C88CF] text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">1</div>
+                            <h3 class="text-2xl font-bold text-gray-900">AI Candidate Matching</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed ml-14">Our proprietary algorithms analyze thousands of profiles to find perfect matches for your open positions, considering skills, experience, and culture fit.</p>
+                    </div>
+                    <div class="group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-[#1C88CF] text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">2</div>
+                            <h3 class="text-2xl font-bold text-gray-900">Automated Interviews</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed ml-14">Conduct first-round interviews automatically with our AI-powered chatbot that assesses skills and culture fit based on your parameters.</p>
+                    </div>
+                    <div class="group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-[#1C88CF] text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">3</div>
+                            <h3 class="text-2xl font-bold text-gray-900">Talent Analytics</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed ml-14">Gain insights into your hiring process with detailed analytics and predictive hiring trends to optimize your recruitment strategy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Additional Features Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/50">
+                <div class="w-14 h-14 bg-[#1C88CF] rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-shield-alt text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3 text-gray-900">Bias Detection</h3>
+                <p class="text-gray-600">Our AI identifies and mitigates unconscious bias in the hiring process to promote diversity and inclusion.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/50">
+                <div class="w-14 h-14 bg-[#1C88CF] rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-clock text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3 text-gray-900">Time-to-Hire Analytics</h3>
+                <p class="text-gray-600">Track and optimize your hiring timeline with real-time analytics and benchmarking against industry standards.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/50">
+                <div class="w-14 h-14 bg-[#1C88CF] rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3 text-gray-900">Team Collaboration</h3>
+                <p class="text-gray-600">Enable seamless collaboration between hiring managers, recruiters, and team members throughout the hiring process.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-20 bg-white" id="how-it-works">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6">
+                <i class="fas fa-magic mr-2"></i>
+                How It Works
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Simple Steps to Revolutionize Hiring</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Our AI-powered platform streamlines recruitment from start to finish</p>
+        </div>
+
+        <!-- Process Visualization -->
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-8 mb-20">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center text-center max-w-xs">
+                <div class="w-16 h-16 bg-[#1C88CF] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">
+                    1
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Define Requirements</h3>
+                <p class="text-gray-600">Tell us what you're looking for with skills, experience, and culture fit preferences.</p>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden lg:block text-blue-400 text-4xl">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center text-center max-w-xs">
+                <div class="w-16 h-16 bg-[#1C88CF] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 ">
+                    2
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">AI Matching</h3>
+                <p class="text-gray-600">Our AI scans millions of profiles to find perfect candidates for your role.</p>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden lg:block text-blue-400 text-4xl">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center text-center max-w-xs">
+                <div class="w-16 h-16 bg-[#1C88CF] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">
+                    3
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Connect & Hire</h3>
+                <p class="text-gray-600">Review top matches and connect directly with qualified candidates.</p>
+            </div>
+        </div>
+
+        <!-- Detailed Steps -->
+        <div class="grid lg:grid-cols-3 gap-10">
+            <!-- Step 1 Details -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-bullseye text-[#1C88CF] text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Define Your Requirements</h3>
+                </div>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A] mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Customize required skills and experience levels</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A] mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Set cultural fit parameters</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A] mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Optimize for diversity and inclusion</p>
+                    </li>
+                </ul>
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="font-medium text-gray-900 mb-3">Job Requirements</div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span>Technical Skills</span>
+                            <span class="text-[#13538A]">High Priority</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-[#13538A] h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Culture Fit</span>
+                            <span class="text-[#13538A]">Medium Priority</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-[#13538A] h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 Details -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-robot text-[#1C88CF] text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">AI-Powered Search</h3>
+                </div>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A] mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">300+ million candidate profiles indexed</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A] mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Real-time availability tracking</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A] mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Automated outreach to top candidates</p>
+                    </li>
+                </ul>
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="font-medium text-gray-900">Search Progress</div>
+                        <span class="text-sm bg-blue-100 text-[#1C88CF] px-2 py-1 rounded-full">Active</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span>Profiles Analyzed</span>
+                            <span>1,247</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-[#13538A] h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Qualified Matches</span>
+                            <span>28</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-[#13538A] h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-200">
+                        <button class="w-full py-2.5 bg-[#13538A] text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            View Matches
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 Details -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-user-check text-[#1C88CF] text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Intelligent Screening</h3>
+                </div>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Natural language understanding</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Sentiment analysis</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 mt-1 text-[#13538A mr-2">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="text-gray-700">Bias detection and mitigation</p>
+                    </li>
+                </ul>
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="font-medium text-gray-900 mb-3">Screening Results</div>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm">
+                            <span class="text-gray-600">Technical Assessment</span>
+                            <span class="ml-auto font-medium text-green-600">92%</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="text-gray-600">Communication Skills</span>
+                            <span class="ml-auto font-medium text-green-600">88%</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="text-gray-600">Culture Fit</span>
+                            <span class="ml-auto font-medium text-yellow-600">76%</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-200">
+                        <p class="text-sm text-gray-600 text-center">Full report available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="py-20 bg-white">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6">
+                <i class="fas fa-users mr-2"></i>
+                Waitlisted Customers
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Join Forward-Thinking Companies</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">See what companies waiting to use Rezoomer have to say</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="p-8 rounded-2xl bg-white border border-gray-200 hover:border-blue-200 transition-colors duration-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900">Sarah Johnson</div>
+                        <div class="text-gray-600 text-sm">CTO, TechCorp</div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic leading-relaxed">
+                    "We've been waiting for a solution like Rezoomer for years. The ability to find vetted global talent with AI matching will completely transform how we scale our engineering team."
+                </blockquote>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="p-8 rounded-2xl bg-white border border-gray-200 hover:border-blue-200 transition-colors duration-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900">Alex Chen</div>
+                        <div class="text-gray-600 text-sm">HR Director, InnovateLabs</div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic leading-relaxed">
+                    "As someone who's spent years managing recruitment, I'm genuinely excited about Rezoomer. The focus on AI-powered matching for cultural fit is exactly what modern companies need."
+                </blockquote>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="p-8 rounded-2xl bg-white border border-gray-200 hover:border-blue-200 transition-colors duration-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900">Maya Patel</div>
+                        <div class="text-gray-600 text-sm">Founder, StartupX</div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic leading-relaxed">
+                    "For startups like ours, finding the right talent quickly is make-or-break. Being on the waitlist for Rezoomer gives us confidence we'll be able to scale our team efficiently when the platform launches."
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Waitlist Form -->
+<section id="waitlist" class="py-15">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6">
+                <i class="fas fa-star mr-2"></i>
+                Be First in Line
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Join Our Exclusive Waitlist</h2>
+            <p class="text-xl text-gray-600">Get early access, special launch pricing, and personalized onboarding when we go live.</p>
+        </div>
+        <form id="waitlistForm" action="/waitlist" method="POST" class="bg-white rounded-2xl p-8 md:p-10 border border-blue-100">
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Name Field -->
+                <div class="relative group">
+                    <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-blue-400">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" id="name" name="name" required
+                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none peer">
+                    </div>
+                </div>
+                <!-- Email Field -->
+                <div class="relative group">
+                    <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-blue-400">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <input type="email" id="email" name="email" required
+                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none peer">
+                    </div>
+                </div>
+            </div>
+            <!-- Role Selection -->
+            <div class="mb-8">
+                <label class="block text-gray-700 font-medium mb-4">I'm interested in</label>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- Candidate Option -->
+                    <label class="relative cursor-pointer group">
+                        <input type="radio" name="role" value="candidate" class="sr-only peer" checked>
+                        <div class="p-4 border border-gray-300 rounded-lg peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all duration-200 group-hover:border-blue-400">
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-3 peer-checked:border-blue-500">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-blue-500 opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></div>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Find work as a candidate</div>
+                                    <div class="text-sm text-gray-500">Get matched with top companies</div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <!-- Company Option -->
+                    <label class="relative cursor-pointer group">
+                        <input type="radio" name="role" value="company" class="sr-only peer">
+                        <div class="p-4 border border-gray-300 rounded-lg peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all duration-200 group-hover:border-blue-400">
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-3 peer-checked:border-blue-500">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-blue-500 opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></div>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Hire talent for my company</div>
+                                    <div class="text-sm text-gray-500">Access vetted global candidates</div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 relative overflow-hidden group">
+                    <span class="relative z-10 flex items-center justify-center">
+                        <span>Join Waitlist</span>
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </span>
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 z-0"></div>
+            </button>
+            <!-- Trust indicators -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-500">
+                    <i class="fas fa-lock text-green-500 mr-1"></i>
+                    We respect your privacy. Your information is secure and will never be shared.
+                </p>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white text-gray-600 py-16 mt-20">
+    <div class="container mx-auto px-6 max-w-7xl p-10 border border-[#1C88CF]/50 rounded-2xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+            <!-- Brand Column -->
+            <div class="lg:col-span-1">
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="/public/logo.png" alt="Rezoomer Logo" class="h-8 w-auto object-contain">
+                </div>
+                <p class="mb-6 text-gray-500 leading-relaxed">
+                    Connecting global talent with forward-thinking companies through AI-powered recruitment solutions.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#home" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center text-gray-600 hover:text-blue-600 transition-all duration-200">
+                        <i class="fab fa-twitter text-sm"></i>
+                    </a>
+                    <a href="#home" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center text-gray-600 hover:text-blue-600 transition-all duration-200">
+                        <i class="fab fa-linkedin-in text-sm"></i>
+                    </a>
+                    <a href="#home" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center text-gray-600 hover:text-blue-600 transition-all duration-200">
+                        <i class="fab fa-github text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product Links -->
+            <div>
+                <h3 class="text-gray-900 text-lg font-semibold mb-6 flex items-center">
+                    <i class="fas fa-cube mr-2 text-blue-600"></i>
+                    Product
+                </h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#features" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Features
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#how-it-works" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            How It Works
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Pricing
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Integrations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            API
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Company Links -->
+            <div>
+                <h3 class="text-gray-900 text-lg font-semibold mb-6 flex items-center">
+                    <i class="fas fa-building mr-2 text-blue-600"></i>
+                    Company
+                </h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#features" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Careers
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Press
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Customers
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support Links -->
+            <div>
+                <h3 class="text-gray-900 text-lg font-semibold mb-6 flex items-center">
+                    <i class="fas fa-life-ring mr-2 text-blue-600"></i>
+                    Support
+                </h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Help Center
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#waitlist" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Contact Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Privacy Policy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Terms of Service
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#home" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 group">
+                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></i>
+                            Security
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 mb-4 md:mb-0">
+                <p class="text-gray-500 text-sm">© 2025 Rezoomer. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-blue-600 text-sm transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 text-sm transition-colors duration-200">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 text-sm transition-colors duration-200">Cookie Policy</a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <a href="https://kobiljon.com" class="text-gray-500 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-globe mr-2 text-sm"></i>
+                    <span>kobiljon.com</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Lottie Animation Script -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<!-- Main JavaScript -->
+<script>
+    // Initialize all functionality after page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Check if elements exist
+        if (mobileMenuButton && mobileMenu) {
+            // Toggle mobile menu
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Toggle the menu
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('block');
+                    // Change to close icon
+                    this.innerHTML = '<i class="fas fa-times text-xl"></i>';
+                } else {
+                    mobileMenu.classList.remove('block');
+                    mobileMenu.classList.add('hidden');
+                    // Change to menu icon
+                    this.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (mobileMenu.classList.contains('block') &&
+                    !mobileMenu.contains(e.target) &&
+                    !mobileMenuButton.contains(e.target)) {
+                    mobileMenu.classList.remove('block');
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                }
+            });
+
+            // Close menu when clicking on a link
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('block');
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                });
+            });
+
+            // Close menu on resize to desktop
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    if (window.innerWidth >= 768) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('block');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                    }
+                }, 100);
+            });
+        }
+
+        // Initialize Lottie animation for hero section
+        const lottieContainer = document.getElementById('lottie-animation');
+        if (lottieContainer) {
+            const lottiePlayer = document.createElement('lottie-player');
+            lottiePlayer.setAttribute('src', '/public/globe.json');
+            lottiePlayer.setAttribute('background', 'transparent');
+            lottiePlayer.setAttribute('speed', '1');
+            lottiePlayer.setAttribute('style', 'width: 100%; height: 100%;');
+            lottiePlayer.setAttribute('loop', '');
+            lottiePlayer.setAttribute('autoplay', '');
+
+            lottieContainer.innerHTML = '';
+            lottieContainer.appendChild(lottiePlayer);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        lottiePlayer.play();
+                    } else {
+                        lottiePlayer.pause();
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(lottieContainer);
+        }
+
+        // Initialize Lottie animation for features section
+        const aiAnimationContainer = document.getElementById('ai-animation');
+        if (aiAnimationContainer) {
+            const lottiePlayer = document.createElement('lottie-player');
+            lottiePlayer.setAttribute('src', '/public/ai.json');
+            lottiePlayer.setAttribute('background', 'transparent');
+            lottiePlayer.setAttribute('speed', '1');
+            lottiePlayer.setAttribute('style', 'width: 100%; height: 100%;');
+            lottiePlayer.setAttribute('loop', '');
+            lottiePlayer.setAttribute('autoplay', '');
+
+            aiAnimationContainer.innerHTML = '';
+            aiAnimationContainer.appendChild(lottiePlayer);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        lottiePlayer.play();
+                    } else {
+                        lottiePlayer.pause();
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(aiAnimationContainer);
+        }
+
+        // Form submission handler
+        const waitlistForm = document.getElementById('waitlistForm');
+        if (waitlistForm) {
+            waitlistForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+
+                fetch('/waitlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Thank you for joining our waitlist! We\'ll be in touch soon.');
+                            this.reset();
+                        } else {
+                            throw new Error('Submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Something went wrong. Please try again later.');
+                        console.error('Error:', error);
+                    });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
